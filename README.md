@@ -89,3 +89,18 @@ array([[  1,   2, 103],
 
 # Also look into np.where
 ```
+
+```python
+a = np.array([[1, 2, 3],
+              [4, 5, 6],
+              [7, 8, 9]])
+
+a[0] # evaluates to [1, 2, 3]
+
+# Some basic slicing
+a[:, 0] # [1,4,7] // First element in each row
+a[:, 1] # [2,5,6] // Second element in each row
+a[:, 2] # [3,6,9] // Third element in each row
+
+# If we have a 3D array we can nest the slicing even deeper to get elements from each row like above;)
+```
