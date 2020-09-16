@@ -102,5 +102,54 @@ a[:, 0] # [1,4,7] // First element in each row
 a[:, 1] # [2,5,6] // Second element in each row
 a[:, 2] # [3,6,9] // Third element in each row
 
-# If we have a 3D array we can nest the slicing even deeper to get elements from each row like above;)
+# If we have a 3D array
+# we can nest the slicing even deeper to get elements from each row like above;)
+```
+
+## Numba
+
+```python
+from numba import njit, jit, int32
+
+@jit
+def fibo(x):
+    if x in [0, 1]:
+       return 1
+    return fibo(x - 1) + fibo(fibo - 2)
+
+# Specifying arguments and return value
+# int32 -> int32
+@jit(int32(int32))
+def fibo(x):
+    if x in [0, 1]:
+       return 1
+    return fibo(x - 1) + fibo(fibo - 2)
+
+# Numba has two compilation modes: nopython mode and object mode.
+# The former produces much faster code, but has limitations that can
+# force Numba to fall back to the latter.
+
+# To prevent Numba from falling back,
+# and instead raise an error, pass nopython=True.
+# Quoted from:
+# http://numba.pydata.org/numba-doc/0.17.0/user/jit.html#compilation-options (Slightly outdated)
+@njit(int32(int32)) # '@njit' is equal to `@jit(nopython=True)`
+def fibo(x):
+     ...
+
+```
+
+```python
+from numba import njit, int64, prange
+
+# Parallelized sum function (https://numba.pydata.org/)
+# (array with dtype=int64) -> int64
+# Make note that we have to use a different kind of range here 'prange'
+@njit(int64(int64[:]), parallel=True)
+def parallel_sum(A):
+    sum = 0.0
+    for i in prange(A.shape[0]):
+        sum += A[i]
+
+    return sum
 ```
