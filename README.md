@@ -11,7 +11,7 @@ a = np.array([[1,2,3],
               [7,8,9]])
 
 # Resizes the array into a (2,3,3) shape.
-# In this case it will copy the first row and extend it, adding a new dimension.
+# In this case it will copy the first 2D-list and append it, adding a new dimension.
 np.resize(a, (2,3,3))
 
 # Result
@@ -51,8 +51,8 @@ array([[ 6,  6,  6, 15, 15, 15, 24, 24, 24],
        [ 6,  6,  6, 15, 15, 15, 24, 24, 24]])
 
 # Lets turn it into a different shape
-# (using reshape here since we are not extending
-#      , but could have also used resize)
+# (using reshape here since we are not extending,
+# but could have also used resize)
 b.reshape((2,3,3))
 
 # Result
