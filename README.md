@@ -153,3 +153,26 @@ def parallel_sum(A):
 
     return sum
 ```
+
+## Cython
+
+The easiest way to compile a cython-file is by making a `setup.py` file. It could look like something like this:
+
+```python
+from distutils.core import setup
+from Cython.Build import cythonize
+from distutils.extension import Extension
+import numpy
+
+setup(
+    name="SomeCoolName",
+    ext_modules=cythonize([Extension(
+        "somecythonfile", ["somecythonfile.pyx"], include_dirs=[numpy.get_include()])])
+)
+```
+
+We import `numpy` and specify with `include_dirs=[numpy.get_include()]` that our `somecythonfile.pyx` does include/use `numpy` functions.
+
+Then we can compile the file with `python setup.py build_ext --inplace`.
+
+**Make note** that the file above is different from a `setup.py` file which lets you install a package.
